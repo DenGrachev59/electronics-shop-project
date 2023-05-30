@@ -1,4 +1,4 @@
-from src.item import Item
+from src.item_ import Item
 
 if __name__ == '__main__':
     item1 = Item("Смартфон", 10000, 20)
@@ -9,6 +9,7 @@ if __name__ == '__main__':
 
     # устанавливаем новый уровень цен
     Item.pay_rate = 0.8
+    print (Item.pay_rate)
     # применяем скидку
     item1.apply_discount()
 
