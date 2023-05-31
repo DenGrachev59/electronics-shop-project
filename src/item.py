@@ -1,5 +1,3 @@
-import self
-
 
 class Item:
     """

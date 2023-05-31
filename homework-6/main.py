@@ -1,4 +1,4 @@
-from src.item_ import Item
+from src.item import Item
 
 if __name__ == '__main__':
     # Файл items.csv отсутствует.
