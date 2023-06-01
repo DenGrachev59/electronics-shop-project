@@ -34,6 +34,6 @@ class Item:
         Применяет установленную скидку для конкретного товара.
         """
         self.price = self.price * self.pay_rate
-        return self.price
+        # return self.price
 
 

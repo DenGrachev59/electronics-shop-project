@@ -12,4 +12,5 @@ def test_calculate_total_price():
 def test_apply_discount():
     Item.pay_rate = 0.5
     object_ = Item('Name', 10, 50)
-    assert object_.apply_discount() == 5
+    object_.apply_discount()
+    assert object_.price == 5
