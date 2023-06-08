@@ -1,9 +1,6 @@
 import pytest
 import csv
 
-
-
-
 file_csv = 'items.csv'
 
 
@@ -26,6 +23,12 @@ class Item:
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
+
+    def __str__(self) -> str:
+        return f'{self.__name}'
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
 
     def calculate_total_price(self) -> float:
         """
@@ -50,7 +53,7 @@ class Item:
 
     @name.setter
     def name(self, name):
-        if isinstance(name, str) and len(name) <= 10 and  name.isdigit() is not True:
+        if isinstance(name, str) and len(name) <= 10 and name.isdigit() is not True:
             self.__name = name
         else:
             print("False name or invalid")
@@ -66,9 +69,9 @@ class Item:
             # print(reader)
             for row in reader:
                 # if count == 0:
-                    # Вывод строки, содержащей заголовки для столбцов
-                    # print(f'Файл содержит столбцы: {", ".join(row)}')
-                    # Вывод строк
+                # Вывод строки, содержащей заголовки для столбцов
+                # print(f'Файл содержит столбцы: {", ".join(row)}')
+                # Вывод строк
                 # print(f' {row["name"]} - {row["price"]},  {row["quantity"]}', end=' \n')
                 Item(row['name'], row['price'], row['quantity'])
 
