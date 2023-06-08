@@ -15,6 +15,7 @@ def test_apply_discount():
     object_.apply_discount()
     assert object_.price == 5
 
+
 def test_set_name():
     object_ = Item('Бур', 5, 10)
     object_.name = 'Тур'
@@ -26,10 +27,19 @@ def test_set_name():
     object_.name = 150
     assert object_.name == 'Тур'
 
+
 def test_string_to_number():
     assert Item.string_to_number('15.6') == 15
 
+
 def test_instantiate_from_csv():
     Item.instantiate_from_csv()
-    assert len(Item.all)==5
+    assert len(Item.all) == 5
+
+
+def test_repr_str():
+    """ Test repr and str method"""
+    item = Item("Телефон", 10, 50)
+    assert repr(item) == "Item('Телефон', 10, 50)"
+    assert str(item) == 'Телефон'
 
