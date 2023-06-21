@@ -1,7 +1,14 @@
 import pytest
 import csv
 
-file_csv = 'items.csv'
+file_csv = 'C:/Users/Денис/Desktop/Курс разработчик Python/Project_4_kurs/electronics-shop-project/src/items.csv'
+
+
+class InstantiateCSVError(Exception):
+    """Файл поврежден"""
+
+    def __str__(self):
+        return 'Файл item.csv поврежден'
 
 
 class Item:
@@ -19,7 +26,6 @@ class Item:
         :param price: Цена за единицу товара.
         :param quantity: Количество товара в магазине.
         """
-
 
         self.__name = name
         self.price = price
@@ -67,24 +73,23 @@ class Item:
             print("False name or invalid")
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, file=file_csv):
 
-        file = '../src/items.csv'
         cls.all.clear()
-        with open(file) as csvfile:
-            reader = csv.DictReader(csvfile)
-            count = 0  # Счетчик подсчета строк и вывода заголовков столбцов
-            # print(reader)
-            for row in reader:
-                # if count == 0:
-                # Вывод строки, содержащей заголовки для столбцов
-                # print(f'Файл содержит столбцы: {", ".join(row)}')
-                # Вывод строк
-                # print(f' {row["name"]} - {row["price"]},  {row["quantity"]}', end=' \n')
-                Item(row['name'], row['price'], row['quantity'])
-
-                count += 1
-            # print(f'Всего в файле {count + 1} строк.')
+        try:
+            with open(file) as csvfile:
+                reader = csv.DictReader(csvfile)
+                count = 0  # Счетчик подсчета строк и вывода заголовков столбцов
+                for row in reader:
+                    if list(row.keys()) == ['name', 'price', 'quantity']:
+                        Item(row['name'], row['price'], row['quantity'])
+                        count += 1
+                    else:
+                        raise InstantiateCSVError
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
+        except InstantiateCSVError:
+            raise InstantiateCSVError
 
     @staticmethod
     def string_to_number(data):
