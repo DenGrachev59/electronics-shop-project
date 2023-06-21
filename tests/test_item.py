@@ -2,6 +2,12 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
+from src.item import InstantiateCSVError
+
+
+@pytest.fixture
+def item_fixture():
+    return Item('Ноутбук', 1000, 20)
 
 
 def test_calculate_total_price():
@@ -36,6 +42,29 @@ def test_string_to_number():
 def test_instantiate_from_csv():
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
+
+
+def test_FileNotFoundError_errors(item_fixture):
+    with pytest.raises(FileNotFoundError):
+        item_fixture.instantiate_from_csv(
+            file='C:/Users/Денис/Desktop/Курс разработчик Python/Project_4_kurs/electronics-shop-project/src/it.csv')
+
+
+def test_InstantiateCSVError_errors(item_fixture):
+    """Убрал поле с данными"""
+    with pytest.raises(InstantiateCSVError):
+        item_fixture.instantiate_from_csv(
+            file='C:/Users/Денис/Desktop/Курс разработчик '
+                 'Python/Project_4_kurs/electronics-shop-project/src/uncorrect_items.csv')
+
+
+def test_InstantiateCSVError_errors_data(item_fixture):
+    """Добавил новое поле"""
+    with pytest.raises(InstantiateCSVError):
+        item_fixture.instantiate_from_csv(
+            file='C:/Users/Денис/Desktop/Курс разработчик '
+                 'Python/Project_4_kurs/electronics-shop-project/src/uncorrect_items_data.csv')
+
 
 
 def test_repr_str():
